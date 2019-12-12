@@ -16,11 +16,6 @@ export default {
 		return {
 			msg: 'Vue'
 		}
-	},
-	created() {
-		new Promise((re, rj) => {
-			console.log(1111)
-		})
 	}
 }
 </script>
@@ -29,6 +24,5 @@ export default {
 	.app {
 		font-size: 20px;
 		color: grey;
-		display: flex;
 	}
 </style>
