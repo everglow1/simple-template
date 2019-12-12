@@ -1,7 +1,7 @@
 <template>
 	<div class="home">
 		<p>{{msg}}</p>
-		<img src="../images/default.jpg" alt="" />
+		<img src="src/images/default.jpg" alt="" />
 	</div>
 </template>
 
@@ -19,7 +19,7 @@ export default {
 
 <style scoped>
 	.home {
-		background-image: url('../images/default.jpg');
+		/* background-image: url('../images/default.jpg'); */
 	}
 	img {
 		width: 100px;

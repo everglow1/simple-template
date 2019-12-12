@@ -14,6 +14,12 @@ module.exports = {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'bundle.js'
 	},
+	resolve: {
+		alias: {
+			'@': path.resolve(__dirname, 'src')
+		},
+		extensions: ['.js', '.json', '.css', '.vue']
+	},
 	module: {
 		rules: [
 			{
