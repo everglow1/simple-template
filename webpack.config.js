@@ -20,7 +20,19 @@ module.exports = {
 		alias: {
 			'@': path.resolve(__dirname, 'src')
 		},
-		extensions: ['.js', '.json', '.css', '.vue']
+		extensions: ['.js', '.json', '.css', '.vue', '.less', '.scss', '.stylus']
+	},
+	watchOptions: {
+		ignored: /node_modules/,
+		aggregateTimeout: 300,
+		poll: 1000
+	},
+	devServer:{
+		inline: true,
+		compress: true,
+		host: '127.0.0.1',
+		port: 8000,
+		historyApiFallback: true
 	},
 	module: {
 		rules: [
@@ -32,7 +44,7 @@ module.exports = {
 				test: /\.css$/,
 				use: ExtractTextPlugin.extract({
           fallback: "style-loader",
-          use: "css-loader"
+          use: ["style-loader", "css-loader", "postcss-loader"]
         })
 			},
 			{
@@ -52,14 +64,6 @@ module.exports = {
 					}
 				]
 			},
-			// {
-			// 	test: /\.(js)$/,
-			// 	loader: 'babel-loader',
-			// 	// include: [resolve('src'), resolve('test')]
-			// 	exclude: [
-			// 		// path.join(__dirname, '../node_modules')
-			// 	]
-			// }
 			{
 				test: /\.m?js$/,
 				exclude: /(node_modules|bower_components)/,

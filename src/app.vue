@@ -29,5 +29,6 @@ export default {
 	.app {
 		font-size: 20px;
 		color: grey;
+		display: flex;
 	}
 </style>
