@@ -22,6 +22,7 @@ export default {
 
 <style scoped>
 	.app {
-
+		font-size: 20px;
+		color: grey;
 	}
 </style>

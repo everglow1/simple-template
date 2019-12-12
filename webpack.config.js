@@ -1,6 +1,7 @@
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
 	mode: 'production',
@@ -25,7 +26,12 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new ExtractTextPlugin('style.css'),
-		new VueLoaderPlugin()
+		new VueLoaderPlugin(),
+		new ExtractTextPlugin('./style.css'),
+		new HtmlWebpackPlugin({
+			filename: 'index.html',
+			template: 'index.html',
+			inject: true
+		})
 	]
 }
