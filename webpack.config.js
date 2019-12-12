@@ -8,6 +8,7 @@ const assetsPath = function(_path) {
 }
 
 module.exports = {
+	// entry: ["babel-polyfill", './src/main.js'],
 	entry: './src/main.js',
 	output: {
 		path: path.resolve(__dirname, './dist'),
@@ -51,10 +52,23 @@ module.exports = {
 					}
 				]
 			},
+			// {
+			// 	test: /\.(js)$/,
+			// 	loader: 'babel-loader',
+			// 	// include: [resolve('src'), resolve('test')]
+			// 	exclude: [
+			// 		// path.join(__dirname, '../node_modules')
+			// 	]
+			// }
 			{
-				test: /\.(js)$/,
-				loader: 'babel-loader',
-				
+				test: /\.m?js$/,
+				exclude: /(node_modules|bower_components)/,
+				use: {
+					loader: 'babel-loader',
+					options: {
+						presets: ['@babel/preset-env'] //这里配置了babel就不需要。babelrc文件配置了
+					}
+				}
 			}
 		]
 	},
