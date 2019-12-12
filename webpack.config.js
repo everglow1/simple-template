@@ -4,15 +4,16 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const assetsPath = function(_path) {
 	const assetsSubDirectory = 'assets';
-	console.log(path.posix.join(assetsSubDirectory, _path))
 	return path.posix.join(assetsSubDirectory, _path)
 }
 
 module.exports = {
 	entry: './src/main.js',
 	output: {
-		path: path.resolve(__dirname, 'dist'),
-		filename: 'bundle.js'
+		path: path.resolve(__dirname, './dist'),
+		// filename: 'bundle.js'
+		filename: '[name].[hash:7].js',
+		// publicPath: './'
 	},
 	resolve: {
 		alias: {
@@ -49,12 +50,20 @@ module.exports = {
 						}
 					}
 				]
+			},
+			{
+				test: /\.(js)$/,
+				loader: 'babel-loader',
+				
 			}
 		]
 	},
 	plugins: [
 		new VueLoaderPlugin(),
-		new ExtractTextPlugin('./style.css'),
+		new ExtractTextPlugin({
+			filename: assetsPath('css/[name].[md5:contenthash:hex:20].css'),
+			allChunks: true
+		}),
 		new HtmlWebpackPlugin({
 			filename: 'index.html',
 			template: 'index.html',
