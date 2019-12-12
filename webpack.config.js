@@ -2,9 +2,13 @@ const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const assetsPath = function(_path) {
+	const assetsSubDirectory = 'assets';
+	console.log(path.posix.join(assetsSubDirectory, _path))
+	return path.posix.join(assetsSubDirectory, _path)
+}
 
 module.exports = {
-	mode: 'production',
 	entry: './src/main.js',
 	output: {
 		path: path.resolve(__dirname, 'dist'),
@@ -22,6 +26,23 @@ module.exports = {
           fallback: "style-loader",
           use: "css-loader"
         })
+			},
+			{
+				test: /\.html$/,
+				use: 'html-withimg-loader'
+			},
+			{
+				test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							limit: 500,
+							// name: assetsPath('img/[name].[ext]')
+							name: 'images/[name]_[hash:7].[ext]'
+						}
+					}
+				]
 			}
 		]
 	},

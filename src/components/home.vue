@@ -1,7 +1,7 @@
 <template>
 	<div class="home">
 		<p>{{msg}}</p>
-		<img src="https://si.geilicdn.com/img-39650000016ec6e2190d0a219248-unadjust_123_45.png" alt="">
+		<img src="../images/default.jpg" alt="" />
 	</div>
 </template>
 
@@ -19,7 +19,7 @@ export default {
 
 <style scoped>
 	.home {
-
+		background-image: url('../images/default.jpg');
 	}
 	img {
 		width: 100px;
