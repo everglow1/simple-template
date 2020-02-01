@@ -10,10 +10,6 @@ const prodConfig = require('./webpack.prod.config.js');
 
 const devMode = process.env.NODE_ENV !== 'development';
 
-const assetsPath = function(_path) {
-	const assetsSubDirectory = 'assets';
-	return path.posix.join(assetsSubDirectory, _path)
-}
 const baseConfig = {
 	entry: {
 		main: './src/main.js'
@@ -62,12 +58,19 @@ const baseConfig = {
         ],
       },
 			{
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+				// test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+				test: /\.(png|jpg|jepg|svg|gif)$/,
 				use: {
 					loader: 'url-loader',
 					options: {
 						// name: utils.assetsPath('media/[name].[hash:7].[ext]'),
+						// name: path.resolve(__dirname, '../images/[name]_[hash:7].[ext]'),
+						// limit: 10000,
+						name: '[name].[ext]',
+						outputPath: 'images/',
 						limit: 10000,
+						// publicPath: 'assets',
+						emitFile: true
 					}
 				}
       },
