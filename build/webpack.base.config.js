@@ -2,22 +2,25 @@ const path = require('path');
 const merge = require('webpack-merge');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const devConfig = require('./webpack.dev.config.js');
 const prodConfig = require('./webpack.prod.config.js');
 
+const devMode = process.env.NODE_ENV !== 'development';
+
 const assetsPath = function(_path) {
 	const assetsSubDirectory = 'assets';
 	return path.posix.join(assetsSubDirectory, _path)
 }
-console.log('===============', path.resolve(__dirname, '../src'))
 const baseConfig = {
 	entry: {
 		main: './src/main.js'
 	},
 	output: {
-		filename: '[name].[hash].js',
+		// filename: '[name].[hash].js',
+		filename:'bundle.js',
 		path: path.resolve(__dirname, 'dist')
 	},
 	resolve: {
@@ -37,13 +40,6 @@ const baseConfig = {
 				loader: 'babel-loader'
 			},
 			{
-				test: /\.css$/,
-				use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: ["style-loader", "css-loader", "postcss-loader"]
-        })
-			},
-			{
 				test: /\.less$/,
 				loader: ['css-loader', 'style-loader', 'postcss-loader', 'less-loader']
 			},
@@ -55,6 +51,17 @@ const baseConfig = {
 				test: /\.stylus$/,
 				loader: ['css-loader', 'style-loader', 'postcss-loader', 'stylus-loader']
 			},
+			{
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+					'style-loader',
+          // devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+					// 'sass-loader',
+					// 'vue-style-loader'
+        ],
+      },
 			{
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
 				use: {
@@ -89,14 +96,17 @@ const baseConfig = {
 	},
 	plugins: [
 		new VueLoaderPlugin(),
-		new ExtractTextPlugin({
-			filename: assetsPath('css/[name].[md5:contenthash:hex:20].css'),
-			allChunks: true
-		}),
 		new HtmlWebpackPlugin({
 			template: 'index.html',
+			filename: 'index.html'
 			// inject: true
-		})
+		}),
+		new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: devMode ? '[name].css' : '[name].[hash].css',
+      chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+    })
 	]
 }
 
