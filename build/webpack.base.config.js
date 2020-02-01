@@ -19,9 +19,8 @@ const baseConfig = {
 		main: './src/main.js'
 	},
 	output: {
-		// filename: '[name].[hash].js',
-		filename:'bundle.js',
-		path: path.resolve(__dirname, 'dist')
+		filename: '[name].[hash].js',
+		path: path.resolve(__dirname, '../dist')
 	},
 	resolve: {
 		alias: {
